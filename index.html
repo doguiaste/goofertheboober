@@ -1,62 +1,67 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Rickroll Army</title>
-    <script>
-      let popupList = [];
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>💀 You Got Rick'd</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: monospace;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
 
-      function spawnPopup(x = 100, y = 100) {
-        const popup = window.open(
-          "rickroll.html",
-          "",
-          `width=400,height=300,left=${x},top=${y}`
-        );
+    #rickroll {
+      display: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-        if (!popup) {
-          alert("Popup engellendi! Lütfen izin verin 💔");
-          return;
+    #msg {
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+  </style>
+</head>
+<body onclick="activateHell()">
+  <div id="msg">Click anywhere to continue... 😛</div>
+  <video id="rickroll" autoplay loop>
+    <source src="https://files.catbox.moe/gqege9.mp4" type="video/mp4">
+    Your browser doesn't support Rick 😢
+  </video>
+
+  <script>
+    function activateHell() {
+      document.getElementById('msg').remove();
+      const vid = document.getElementById('rickroll');
+      vid.style.display = 'block';
+      vid.volume = 1.0;
+      vid.play();
+
+      // Optional: open popup if allowed
+      try {
+        const win = window.open('', '', 'width=400,height=300');
+        if (win) {
+          win.document.write('<h1 style="font-family:sans-serif;">💀 YOU GOT RICKROLLED!</h1>');
         }
-
-        popupList.push(popup);
-
-        // Hareket ettirici
-        let dx = 5;
-        let dy = 5;
-        setInterval(() => {
-          try {
-            x += dx;
-            y += dy;
-            popup.moveTo(x, y);
-            if (x <= 0 || x >= screen.width - 400) dx = -dx;
-            if (y <= 0 || y >= screen.height - 300) dy = -dy;
-          } catch (e) {
-            // popup kapanmış mı kontrol et
-          }
-        }, 50);
-
-        // Kapatılırsa yenisini ve daha fazlasını aç
-        const checker = setInterval(() => {
-          try {
-            if (popup.closed) {
-              clearInterval(checker);
-              for (let i = 0; i < 2; i++) {
-                spawnPopup(
-                  Math.floor(Math.random() * screen.width),
-                  Math.floor(Math.random() * screen.height)
-                );
-              }
-            }
-          } catch (e) {}
-        }, 500);
+      } catch (e) {
+        console.warn('Popup blocked or failed 💔');
       }
-
-      function startMadness() {
-        spawnPopup(200, 200);
-      }
-    </script>
-  </head>
-  <body style="background:black; color:white; text-align:center;">
-    <h1>Don't Click the Button</h1>
-    <button onclick="startMadness()">Do Not Click</button>
-  </body>
+    }
+  </script>
+</body>
 </html>
