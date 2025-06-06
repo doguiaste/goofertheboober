@@ -1,62 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Rickroll Army</title>
-    <script>
-      let popupList = [];
-
-      function spawnPopup(x = 100, y = 100) {
-        const popup = window.open(
-          "rickroll.html",
-          "",
-          `width=400,height=300,left=${x},top=${y}`
-        );
-
-        if (!popup) {
-          alert("Popup engellendi! Lütfen izin verin 💔");
-          return;
-        }
-
-        popupList.push(popup);
-
-        // Hareket ettirici
-        let dx = 5;
-        let dy = 5;
-        setInterval(() => {
-          try {
-            x += dx;
-            y += dy;
-            popup.moveTo(x, y);
-            if (x <= 0 || x >= screen.width - 400) dx = -dx;
-            if (y <= 0 || y >= screen.height - 300) dy = -dy;
-          } catch (e) {
-            // popup kapanmış mı kontrol et
-          }
-        }, 50);
-
-        // Kapatılırsa yenisini ve daha fazlasını aç
-        const checker = setInterval(() => {
-          try {
-            if (popup.closed) {
-              clearInterval(checker);
-              for (let i = 0; i < 2; i++) {
-                spawnPopup(
-                  Math.floor(Math.random() * screen.width),
-                  Math.floor(Math.random() * screen.height)
-                );
-              }
-            }
-          } catch (e) {}
-        }, 500);
-      }
-
-      function startMadness() {
-        spawnPopup(200, 200);
-      }
-    </script>
+    <title>GOTCHA 😛</title>
   </head>
-  <body style="background:black; color:white; text-align:center;">
-    <h1>Don't Click the Button</h1>
-    <button onclick="startMadness()">Do Not Click</button>
+  <body style="margin:0; background:black;">
+    <video autoplay loop width="100%" height="100%">
+      <source src="rickroll_compressed.mp4" type="video/mp4" />
+      Tarayıcın video desteklemiyor gardaş 💔
+    </video>
   </body>
 </html>
